@@ -7,7 +7,7 @@
 위와 같은 상황해서 해당 클래스의 인스턴스화를 막을 필요가 있다. 인스턴스 생성이 무의미기 때문이다. 
 인스턴스 생성을 막아 변수와 메서드의 변경 없이 공통적으로 동작하게끔 하여 만들어진 역할을 명확히 해주자. 
 
-### 인스턴스 생성을 막기위한 바람직하지 않은 케이스
+### 인스턴스 생성을 막는 바람직하지 않은 케이스
 
 ```java
 public abstract class SampleUtils {
@@ -38,6 +38,12 @@ public class Collections {
     private static final int REVERSE_THRESHOLD        =   18;
     private static final int SHUFFLE_THRESHOLD        =    5;
     ... 
+        
+    public static <T extends Comparable<? super T>> void sort(List<T> list) {
+        list.sort(null);
+    } 
+    // 특정 인터페이스를 구현하는 객체를 생성해주는 정적 메서드 
+    (자바 8 부터는 인터페이스 자체에 넣을수 있음) 
 
 }
 ```
