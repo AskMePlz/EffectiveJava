@@ -51,7 +51,7 @@ public class Lotto1 {
 public class Lotto2 {
     private LottoPolicy lottoPolicy;
 
-		// 의존 객체 주입 
+    // 의존 객체 주입 
     public Lotto2(LottoPolicy lottoPolicy) {
         this.lottoPolicy = lottoPolicy;
     }
