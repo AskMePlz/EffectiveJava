@@ -46,19 +46,19 @@
             if (index >= elementCount) {
                 throw new ArrayIndexOutOfBoundsException(index + " >= " +
                                                          elementCount);
-        		} else if (index <0) {
+            } else if (index <0) {
                 throw new ArrayIndexOutOfBoundsException(index);
-        		}
-        
+            }
+
             int j = elementCount - index -1;
-        
-        		if (j >0) {
-                System.arraycopy(elementData,index +1,elementData,index,j);
-        		}
-        
-        	  modCount++;
-        		elementCount--;
-        		elementData[elementCount] = null; /* to let gc do its work */
+
+            if (j > 0) {
+                 System.arraycopy(elementData,index +1,elementData,index,j);
+            }
+
+            modCount++;
+            elementCount--;
+            elementData[elementCount] = null; /* to let gc do its work */
         }
         ```
         
@@ -137,14 +137,6 @@
         ```java
         // example
         ```
-        
-
-## 피해야 하는 자바의 객체 소멸자! finalizer, cleaner
-
-- 왜 ?
-- 그렇다면 ?
-
-## 자원을 close() 해야하는 경우 try-finally 대신 try-with-resources !
 
 - 왜?
 
