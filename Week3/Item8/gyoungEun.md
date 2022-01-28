@@ -1,4 +1,4 @@
-# [Item8]finalizer와 cleaner사용을 피하라
+# [item8] finalizer와 cleaner사용을 피하라
 
 
 
