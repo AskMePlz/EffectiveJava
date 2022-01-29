@@ -12,6 +12,9 @@
 4. 벌금 <br>
 불참 5000원 / 지각 2000원(9시 10분 기준) / 내용 정리 하지 않을 경우 3000원(Item 당)
 
+## 💰 벌금 현황
+
+
 ## 📚 참고
 <a href="https://docs.google.com/document/d/1Nw-_FJKre9x7Uy6DZ0NuAFyYUCjBPCpINxqrP0JFuXk/edit#heading=h.cu6p5now8aia">
 이펙티브 자바 3판 번역용어 해설
