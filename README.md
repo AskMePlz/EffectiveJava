@@ -13,7 +13,7 @@
 불참 5000원 / 지각 2000원(9시 10분 기준) / 내용 정리 하지 않을 경우 3000원(Item 당)
 
 ## 💰 벌금 현황
-
+재경 6000원
 
 ## 📚 참고
 <a href="https://docs.google.com/document/d/1Nw-_FJKre9x7Uy6DZ0NuAFyYUCjBPCpINxqrP0JFuXk/edit#heading=h.cu6p5now8aia">
