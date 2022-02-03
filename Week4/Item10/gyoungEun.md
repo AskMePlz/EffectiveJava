@@ -1,3 +1,7 @@
+# [item 10] equals는 일반 규약을 지켜 재정의하라
+
+
+
 ## equals 메서드는 다음에서 열거한 상황중 하나에 해당하면 재정의 하지 않는 것이 최선이다.
 
 1. 각 인스턴스가 본질적으로 고유하다.
@@ -50,53 +54,52 @@ $X = \{a,b,c\}$ 집합이 있고
 - "Is equal to" on the set of numbers. For example, ${\displaystyle {\tfrac {1}{2}}}$ is equal to ${\displaystyle {\tfrac {4}{8}}}$
 - 도형에서 합동일 경우 동치관계라고 부른다.
 
-### 조건 살펴보기
+## 조건 살펴보기
 
-1. **반사성(reflexivity)**
-    
-    $(a = a)$
-    
-    객체는 자기 자신과 같아야 한다. 
-    
-2. **대칭성(symmetry)**
-    
-    $(a=b) ⇒ (b=a)$
-    
-    서로에 대한 동치여부에 똑같이 답해야한다.
-    
-    ```java
-    import java.util.Objects;
-    
-    public final class CaseInsensitiveString {
-        private final String s;
-    
-        public CaseInsensitiveString(String s) {
-            this.s = Objects.requireNonNull(s);
-        }
-    
-        public boolean equals(Object o) {
-            if (o instanceof CaseInsensitiveString) {
-                return s.equalsIgnoreCase(
-                        ((CaseInsensitiveString) o).s);
-            }
-            if (o instanceof String)
-                return s.equalsIgnoreCase((String) o);
-            return false;
-        }
+### 반사성(reflexivity)
+
+$(a = a)$
+
+객체는 자기 자신과 같아야 한다. 
+
+### **대칭성(symmetry)**
+
+$(a=b) ⇒ (b=a)$
+
+서로에 대한 동치여부에 똑같이 답해야한다.
+
+```java
+import java.util.Objects;
+
+public final class CaseInsensitiveString {
+    private final String s;
+
+    public CaseInsensitiveString(String s) {
+        this.s = Objects.requireNonNull(s);
     }
-    
-    class Main {
-        public static void main(String[] args) {
-            CaseInsensitiveString caseString = new CaseInsensitiveString("test");
-            String s = "test";
-            System.out.println(caseString.equals(s)); // true
-            System.out.print(s.equals(caseString)); // false
+
+    public boolean equals(Object o) {
+        if (o instanceof CaseInsensitiveString) {
+            return s.equalsIgnoreCase(
+                    ((CaseInsensitiveString) o).s);
         }
+        if (o instanceof String)
+            return s.equalsIgnoreCase((String) o);
+        return false;
     }
-    ```
-    
-    위 코드에서 대칭성이 성립하려면 `caseString.equals(s)` 의 결과와 `s.equals(caseString)` 의 결과가 동일해야 한다.
-    
+}
+
+class Main {
+    public static void main(String[] args) {
+        CaseInsensitiveString caseString = new CaseInsensitiveString("test");
+        String s = "test";
+        System.out.println(caseString.equals(s)); // true
+        System.out.print(s.equals(caseString)); // false
+    }
+}
+```
+
+위 코드에서 대칭성이 성립하려면 `caseString.equals(s)` 의 결과와 `s.equals(caseString)` 의 결과가 동일해야 한다.
 
 **대칭성 성립을 위해서는 어떻게 바뀌어야할까?**
 
@@ -110,41 +113,40 @@ equals를 String과도 연동하겠다는 허황된 꿈을 버리고 이렇게 �
     }
 ```
 
-1. **추이성(transitivity)**
-    
-    $(a=b) ∧ (b=c)⇒ (c=a)$
-    
-    첫번째 객체와 두번째 객체가 같으면 첫번째 객체와 세번째 객체가 같다.                                                                                                                                
-    
-    ```java
-    public class Point {
-        private final int x;
-        private final int y;
-    
-        public Point(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-    
-        @Override
-        public boolean equals(Object o) {
-            if (!(o instanceof Point)) return false;
-            Point point = (Point) o;
-            return x == point.x && y == point.y;
-        }
+### **추이성(transitivity)**
+
+$(a=b) ∧ (b=c)⇒ (c=a)$
+
+첫번째 객체와 두번째 객체가 같으면 첫번째 객체와 세번째 객체가 같다.                                                                                                                                
+
+```java
+public class Point {
+    private final int x;
+    private final int y;
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
-    ```
-    
-    ```java
-    public class ColorPoint extends Point {
-        private final Color color;
-        public ColorPoint(int x, int y, Color color) {
-            super(x, y);
-            this.color = color;
-        }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Point)) return false;
+        Point point = (Point) o;
+        return x == point.x && y == point.y;
     }
-    ```
-    
+}
+```
+
+```java
+public class ColorPoint extends Point {
+    private final Color color;
+    public ColorPoint(int x, int y, Color color) {
+        super(x, y);
+        this.color = color;
+    }
+}
+```
 
 **위와 같이 구현된 상태에서 x, y, color 값 모두 같은지 확인하려면 어떻게해야 할까?** ColorPoint에 equals 메서드를 추가해보자.
 
@@ -225,19 +227,45 @@ class ColorPoint {
 }
 ```
 
-1. **일관성(consistency)**
-    
-    두 객체가 같다면(어느 하나 혹은 두 객체 모두가 수정되지 않는 한) 앞으로도 영원히 같아야 한다는 뜻이다. 클래스가 불변이든 가변이든 equals의 판단에 신뢰할 수 없는 자원을 끼지 말아라. 이를 어기면 일관성 조건을 만족시키기가 어렵다. 
-    
-2. **null 아님**
-    
-    모든 객체가 null과 같지 않아야 한다. 일반 규약은 `NullPointerException`을 던지는 경우도 허용하지 않는다. 
-    
-    ```java
-    // 묵시적 null 검사
-    
-    ```
-    
+### **일관성(consistency)**
+
+두 객체가 같다면(어느 하나 혹은 두 객체 모두가 수정되지 않는 한) 앞으로도 영원히 같아야 한다는 뜻이다. 클래스가 불변이든 가변이든 equals의 판단에 신뢰할 수 없는 자원을 끼지 말아라. 이를 어기면 일관성 조건을 만족시키기가 어렵다. 
+
+### **null 아님**
+
+모든 객체가 null과 같지 않아야 한다. 일반 규약은 `NullPointerException`을 던지는 경우도 허용하지 않는다. 아래 코드의 묵시적 null 검사를 보자. equals가 타입을 확인하지 않으면 잘못된 타입이 인수로 주어졌을 때 ClassCastException을 던져서 일반 규약을 위배하게 된다. 그런데 instanceof는 첫번째 피연산자가 null이면 바로 false를 반환하여 명시적으로 검사할 필요가 없다.
+
+```java
+// 묵시적 null 검사
+@Override
+    public boolean equals(Object o) {
+        if (!(o instanceof MyType)) return false;
+
+				MyType mt = (MyType) o;
+        ...
+    }
+
+// 명시적 null 검사
+@Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+
+        ...
+    }
+```
+
+### 양질의 equals메서드 구현 방법
+
+1. == 연산자를 사용해 입력이 자기 자신의 참조인가 확인한다.
+2. instanceof 연산자로 입력이 올바른 타입인지 확인한다.
+3. 입력을 올바른 타입으로 형변환한다.
+4. 입력 객체와 자기 자신의 대응되는 핵심 필드들이 모두 일치하는지 하나씩 검사한다.
+
+### 주의사항
+
+- equals를 재정의할 땐 hashcode도 반드시 재정의
+- 필드들의 동치성만 검사해도 equals규약을 어렵지 않게 지킬 수 있다.
+- object 외의 타입을 매개변수로 받는 equals 메서드는 선언하지 말자.
 
 ### reference
 
