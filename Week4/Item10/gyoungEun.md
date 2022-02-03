@@ -254,19 +254,19 @@ class ColorPoint {
     }
 ```
 
-### 양질의 equals메서드 구현 방법
+## 양질의 equals메서드 구현 방법
 
 1. == 연산자를 사용해 입력이 자기 자신의 참조인가 확인한다.
 2. instanceof 연산자로 입력이 올바른 타입인지 확인한다.
 3. 입력을 올바른 타입으로 형변환한다.
 4. 입력 객체와 자기 자신의 대응되는 핵심 필드들이 모두 일치하는지 하나씩 검사한다.
 
-### 주의사항
+## 주의사항
 
 - equals를 재정의할 땐 hashcode도 반드시 재정의
 - 필드들의 동치성만 검사해도 equals규약을 어렵지 않게 지킬 수 있다.
 - object 외의 타입을 매개변수로 받는 equals 메서드는 선언하지 말자.
 
-### reference
+## reference
 
 [https://en.wikipedia.org/wiki/Equivalence_relation](https://en.wikipedia.org/wiki/Equivalence_relation)
