@@ -56,13 +56,13 @@ $X = \{a,b,c\}$ 집합이 있고
 
 ## 조건 살펴보기
 
-### 반사성(reflexivity)
+1. **반사성(reflexivity)**
 
 $(a = a)$
 
 객체는 자기 자신과 같아야 한다. 
 
-### **대칭성(symmetry)**
+2. **대칭성(symmetry)**
 
 $(a=b) ⇒ (b=a)$
 
@@ -113,7 +113,7 @@ equals를 String과도 연동하겠다는 허황된 꿈을 버리고 이렇게 �
     }
 ```
 
-### **추이성(transitivity)**
+3. **추이성(transitivity)**
 
 $(a=b) ∧ (b=c)⇒ (c=a)$
 
@@ -227,11 +227,11 @@ class ColorPoint {
 }
 ```
 
-### **일관성(consistency)**
+4. **일관성(consistency)**
 
 두 객체가 같다면(어느 하나 혹은 두 객체 모두가 수정되지 않는 한) 앞으로도 영원히 같아야 한다는 뜻이다. 클래스가 불변이든 가변이든 equals의 판단에 신뢰할 수 없는 자원을 끼지 말아라. 이를 어기면 일관성 조건을 만족시키기가 어렵다. 
 
-### **null 아님**
+5. **null 아님**
 
 모든 객체가 null과 같지 않아야 한다. 일반 규약은 `NullPointerException`을 던지는 경우도 허용하지 않는다. 아래 코드의 묵시적 null 검사를 보자. equals가 타입을 확인하지 않으면 잘못된 타입이 인수로 주어졌을 때 ClassCastException을 던져서 일반 규약을 위배하게 된다. 그런데 instanceof는 첫번째 피연산자가 null이면 바로 false를 반환하여 명시적으로 검사할 필요가 없다.
 
