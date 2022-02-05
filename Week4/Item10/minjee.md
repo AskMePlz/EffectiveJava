@@ -228,9 +228,9 @@ equals 메서드는 동치관계(equivalence relation)를 구현하며 다음을
 
 
 ##### 참고자료
-도서 정리 자료
-https://parkadd.tistory.com/84
-https://catsbi.oopy.io/313829e4-e869-48fe-9fb4-adcca06de1c5
-https://donghyeon.dev/%EC%9D%B4%ED%8E%99%ED%8B%B0%EB%B8%8C%EC%9E%90%EB%B0%94/2021/01/04/eqauls%EB%A5%BC-%EC%9E%AC%EC%A0%95%EC%9D%98-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95/
-equals, hashCode, == 연산자 비교
-https://jeong-pro.tistory.com/172
+도서 정리 자료  
+https://parkadd.tistory.com/84  
+https://catsbi.oopy.io/313829e4-e869-48fe-9fb4-adcca06de1c5  
+https://donghyeon.dev/%EC%9D%B4%ED%8E%99%ED%8B%B0%EB%B8%8C%EC%9E%90%EB%B0%94/2021/01/04/eqauls%EB%A5%BC-%EC%9E%AC%EC%A0%95%EC%9D%98-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95/  
+equals, hashCode, == 연산자 비교  
+https://jeong-pro.tistory.com/172  
