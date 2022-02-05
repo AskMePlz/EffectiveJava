@@ -43,12 +43,67 @@ equals 메서드는 동치관계(equivalence relation)를 구현하며 다음을
 - null-아님 : null이 아닌 모든 참조 값 x에 대해 x.equals(null)은 false다.
 
 ### 동치관계를 만족시키기 위한 다섯요건 상세 내용
-1. 반사성 
-  - 객체는 자기자신과 같아야 한다.
-2. 대칭성
-3. 추이성
-4. 일관성
-5. null-아님
+1. 반사성 : x.equals(x)는 true
+    - 객체는 자기자신과 같아야 한다.
+2. 대칭성 : x.equals(y)가 true면 y.equals(x)도 true
+    - 두 객체는 서로에 대한 동치 여부에 똑같이 답해야 한다.
+    - 아래 예시에서 equals 메서드의 대칭성 위배 부분(주석처리 부분)으로 실행시키면 각각 다른 결과가 나오는데 (main-print : true, false)
+      CaseInsensitiveString는 Stirng의 equals를 알고 있지만 그 반대는 모르기 때문이다.
+  ```
+  public class CaseInsensitiveString {
+    private final String s;
+
+    public CaseInsensitiveString(String s) {
+        this.s = Objects.requireNonNull(s);
+    }
+
+    // 대칭성 위배!
+    @Override 
+    public boolean equals(Object o) {
+       // 대칭성 위배
+       /*if (o instanceof CaseInsensitiveString)
+            return s.equalsIgnoreCase(
+                    ((CaseInsensitiveString) o).s);
+        if (o instanceof String) 
+            return s.equalsIgnoreCase((String) o);
+        return false;*/
+        // 수정
+        return o instanceof CaseInsensitiveString &&
+                ((CaseInsensitiveString) o).s.equalsIgnoreCase(s);
+    }
+
+    // 문제 시연 (55쪽)
+    public static void main(String[] args) {
+        CaseInsensitiveString a = new CaseInsensitiveString("Polish");
+        String b = "polish";
+
+        System.out.println("a.equals(b): " + a.equals(b)); // 수정 후 false
+		    System.out.println("b.equals(a): " + b.equals(a)); // 수정 후 false
+    }
+  }
+  ```
+3. 추이성 : x.equals(y)가 true이고, y.equals(z)도 true면, x.equals(z)도 true
+  - 
+4. 일관성 : x.equals(y)를 반복해서 호출하면 항상 true를 반환하거나 항상 false를 반환 
+  - 두 객체가 같다면 앞으로 영원히 같아야 한다는 뜻이다.
+5. null-아님 : x.equals(null)은 false
+
+### eauals 메서드 구현 방법
+1. == 연산자를 사용, 입력이 자기 자신의 참조인지 확인
+2. instanceof 연산자로 입력이 올바른 타입인지 확인
+3. 입력을 올바른 타입으로 형변환
+4. 입력 객체와 자기 자신의 대응되는 '핵심' 필드들이 모두 일치하는지 하나씩 검사
+
+### equals를 다 구현했다면 세가지를 자문하자
+1. 대칭적인가 
+2. 추이성이 있는가
+3. 일관적인가
+
+### 주의사항
+- equals를 재정의할 때는 hashcode도 반드시 재정의하자
+- 너무 복잡하게 해결하려 들지말자
+- object 외 타입을 매개변수로 받는 equals 메서드는 선언하지 말자
+- equals(hashcode 도 마찬가지) 작성 후 구글에서 만든 Auto Value 프레임워크를 활용하여 테스트 하자
 
 ##### 참고
 논리적 동치성(logical equality)  :
