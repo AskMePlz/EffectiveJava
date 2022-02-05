@@ -85,8 +85,26 @@ equals 메서드는 동치관계(equivalence relation)를 구현하며 다음을
 3. 추이성 : x.equals(y)가 true이고, y.equals(z)도 true면, x.equals(z)도 true
   - 
 4. 일관성 : x.equals(y)를 반복해서 호출하면 항상 true를 반환하거나 항상 false를 반환 
-  - 두 객체가 같다면 앞으로 영원히 같아야 한다는 뜻이다.
+  - 두 객체가 같다면 수정되지 않는 한 앞으로 영원히 같아야 한다는 뜻이다.
+  - 불변 클래스로 만들기로 했다면 equals가 한번 같다고 한 객체와 영원히 같다고 답하고 다르다고 한 객체와는 영원히 다르다고 답하도록 만들어야 한다.
+  - 클래스가 불변이든 가변이든 equals의 판단에 신뢰할 수 없는 자원이 끼어들게 해서는 안된다.
+  - equals를 사용할 때는 메모리에 존재하는 객체만을 사용한 결정적(deterministic) 계산만 수행한다.
 5. null-아님 : x.equals(null)은 false
+  - 입력이 null인지 확인해 자신을 보호하는 것보다 instanceof 연산자로 입력 매개변수가 올바른 타입인지 검사한다. 
+	(입력이 null이면 타입 확인 단계에서 false 반환 )
+  ```
+  @Override
+  public boolean equals(Object o) {    // 명시적 null 검사
+    if(o == null)
+        return false;
+  }
+
+  @Override
+  public boolean equals(Object o) {    //묵시적 null 검사
+    if(!(o instanceof MyType))
+        return false;
+  }
+  ```
 
 ### eauals 메서드 구현 방법
 1. == 연산자를 사용, 입력이 자기 자신의 참조인지 확인
