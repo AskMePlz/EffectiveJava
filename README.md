@@ -17,8 +17,6 @@
 -  내용 정리 하지 않을 경우 3000원(Item 당)
 -  리더가 준비를 못 했을 때 (5000원)
 -  리더가 불참 + 준비를 못 했을 때 (2만원)
-### 벌금 현황
-- 재경 6000원
 
 ## 📚 참고
 <a href="https://docs.google.com/document/d/1Nw-_FJKre9x7Uy6DZ0NuAFyYUCjBPCpINxqrP0JFuXk/edit#heading=h.cu6p5now8aia">
