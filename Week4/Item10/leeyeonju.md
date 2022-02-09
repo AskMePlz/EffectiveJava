@@ -1,5 +1,5 @@
 
-### equals 재정의 안한 경우 false 
+### equals 재정의 안한 경우 false -> 객체 식별, 동일성 O, 주소값 비교 
 ``` java
 public class User {
 
@@ -15,7 +15,7 @@ public class User {
     public static void main(String[] args) {
         User user1 = new User("yeonju", 20);
         User user2 = new User("yeonju", 20);
-        System.out.println(user1.equals(user2));
+        System.out.println(user1.equals(user2)); // false 
     }
 }
 ```
@@ -26,7 +26,7 @@ public boolean equals(Object obj) {
 }
 ```     
 
-### equals 재정의 한 경우 true  
+### equals 재정의 한 경우 true -> 논리적 동치성, 동등성, 값 비교로 재정의 
 ``` java
 public class User {
 
@@ -55,12 +55,12 @@ public class User {
     public static void main(String[] args) {
         User user1 = new User("yeonju", 20);
         User user2 = new User("yeonju", 20);
-        System.out.println(user1.equals(user2));
+        System.out.println(user1.equals(user2)); // true 
     }
 }
 ```
 
-### String equals true 
+### String equals true -> String class에 재정의 되어 있음 
 
 ``` java 
 String a = "a";
@@ -69,7 +69,6 @@ System.out.println(a.equals(b));  // true
 ```
 
 ``` java
-// String class에 재정의 되어 있음 
 public boolean equals(Object anObject) {
     if (this == anObject) {
         return true;
