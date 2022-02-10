@@ -18,7 +18,7 @@
 <summary><b>논리적으로 같은 인스턴스는 같은 해시코드를 반환해야한다 (일반 규약 조건2)</b></summary> 
 <br>
   
-  ```java
+```java
 import java.util.HashMap;
 
 class AmbiguousInteger {
@@ -52,10 +52,41 @@ b의 결과값은 예상과 다르게 null이다. 그 이유는 hashcode를 재�
 <details>
 <summary><b>좋은 해시함수는 서로 다른 인스턴스면 다른 해시코드가 되게 하는게 좋다(일반 규약 조건3)</b></summary> 
 <br>
- - 좋은 해시코드 만들기
+  
+ -  **좋은 해시코드 만들기**
+    - 좋은 해시 함수는 서로 다른 인스턴스에 다른 해시코드를 만든다. 
+    - 이상적인 해시 함수는 주어진 (서로 다른) 인스턴스들을 32비트 정수 범위에 균일하게 분배해야 한다.
+    - 다른 필드로부터 계산해 낼 수 있는 필드는 모두 무시해도 된다.
+    
+  ```java
+    @Override
+    public int hashCode() {
+        int c = 31;
+        int result = Short.hashCode(areaCode);
+        result = c * result + Short.hashCode(prefix);
+        result = c * result + Short.hashCode(lineNumber);
+        return result;
+    }
+ ```
 </details>
 
 <details>
-<summary><b>equals를 재정의한 클래스 모두에서 hashCode도 재정의해야 한다.</b></summary> 
+<summary><b>Object.hash()를 쓰면 편하다.</b></summary> 
 <br>
+  
+```java
+  @Override public int hashCode() {
+    return Objects.hash(lineNum, prefix, areaCode);
+  }
+```
+하지만 내부적으로 auto boxing이 일어나서 성능이 떨어진다.
+</details>
+<details>
+<summary><b>주의 사항</b></summary> 
+<br>
+  
+- 클래스가 불변이고 해시코드를 계산하는 비용이 크다면 매번 새로 계산하기 보다는 캐싱하는 방법을 쓰자.
+- 성능을 높인답시고 해시코드를 계산할 때 핵심 필드를 생략해서는 안된다.
+- hascode가 반환하는 값의 생성 규칙을 API 사용자에게 자세히 공표하지 말자. <br>
+  그래야 클라이언트가 이 값에 의지하지 않게 되고 추후에 계산 방식을 바꿀 수도 있다.
 </details>
