@@ -15,7 +15,7 @@
 </details>
 
 <details>
-<summary><b>논리적으로 같은 인스턴스는 같은 해시코드를 반환해야한다 (일반 규약 조건2 위배)</b></summary> 
+<summary><b>논리적으로 같은 인스턴스는 같은 해시코드를 반환해야한다 (일반 규약 조건2)</b></summary> 
 <br>
   
   ```java
@@ -27,33 +27,32 @@ class AmbiguousInteger {
     AmbiguousInteger(int value) {
         this.value = value;
     }
-
-    // public int hashCode() { return 9; }
 }
 
 class Main {
     public static void main(String[] args) {
         HashMap<AmbiguousInteger, Integer> map = new HashMap<>();
         map.put(new AmbiguousInteger(1), 1); // a
-        map.get(new AmbiguousInteger(1)); // b
+        System.out.println(map.get(new AmbiguousInteger(1))); // b
     }
 }
-  ```
-  
-  a라인까지 실행한 그림
-  
-  ![Screen Shot 2022-02-03 at 12 16 46 PM](https://user-images.githubusercontent.com/24830023/153381678-7c0635b3-cdcf-48cb-b231-e54122ba0d64.png)
+  ``` 
+b의 결과값은 예상과 다르게 null이다. 그 이유는 hashcode를 재정의 해주지 않으면  Object의 hashcode 함수를 사용할테니 물리적으로 다른 두 객체가 논리적으로 같은지 알 수 없다.
+ <br>
+ <br>
+ <b> 해결 방법?</b>
+ ```java
+ public int hashCode() { return 9; }
+ ```
+ 위와 같이 hashCode를 재정의하면 해결이 되긴 된다. 위에서 본 규약의 3가지 조건에도 모두 만족한다. 그런데 문제가 있다. 
+ hashMap에 추가되는 모든 노드의 해시값이 같기 때문에, 버킷의 동일한 index에 linkedList와 같은 형태로 저장되기 때문에 성능이 떨어지게 된다. (선형시간)
 
-  
-  b라인까지 실행하면 이렇다. hashcode를 재정의 해주지 않으면  Object의 hashcode 함수를 사용할테니 물리적으로 다른 두 객체가 논리적으로 같은지 알 수 없다. 
-  ![Screen Shot 2022-02-03 at 12 19 11 PM](https://user-images.githubusercontent.com/24830023/153382122-344fffe3-f9f2-4dd8-b0c1-96d4dbcdda0f.png)
-  
 </details>
 
 <details>
-<summary><b>좋은 해시함수는 다른 인스턴스면 다른 해시코드가 되게하는게 좋다(일반 규약 조건3 위배)</b></summary> 
+<summary><b>좋은 해시함수는 서로 다른 인스턴스면 다른 해시코드가 되게 하는게 좋다(일반 규약 조건3)</b></summary> 
 <br>
-  
+ - 좋은 해시코드 만들기
 </details>
 
 <details>
