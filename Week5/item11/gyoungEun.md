@@ -37,11 +37,17 @@ class Main {
     }
 }
   ``` 
-b의 결과값은 예상과 다르게 null이다. 그 이유는 hashcode를 재정의 해주지 않으면  Object의 hashcode 함수를 사용할테니 물리적으로 다른 두 객체가 논리적으로 같은지 알 수 없다.
+b의 결과값은 예상과 다르게 null이다. 그 이유는 hashcode를 재정의 해주지 않으면 Object의 hashcode 함수를 사용할테니 물리적으로 다른 두 객체가 논리적으로 같은지 알 수 없다.
+  ![Screen Shot 2022-02-12 at 5 25 33 PM](https://user-images.githubusercontent.com/24830023/153703682-bdc31cdb-59ef-41e4-935a-8dc1d03dc04f.png)
+
+  ![Screen Shot 2022-02-12 at 5 25 44 PM](https://user-images.githubusercontent.com/24830023/153703686-ff768b77-9e38-47a1-85e8-dc2208544558.png)
+
+  
  <br>
  <br>
  <b> 해결 방법?</b>
- ```java
+
+  ```java
  public int hashCode() { return 9; }
  ```
  위와 같이 hashCode를 재정의하면 해결이 되긴 된다. 위에서 본 규약의 3가지 조건에도 모두 만족한다. 그런데 문제가 있다. 
